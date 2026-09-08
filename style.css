@@ -1,9 +1,24 @@
 
+* {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
 body {
     font-family: 'Verdana';
     margin: 0;
     background-color: #f5f5f5;
     color: #333;
+    overflow-x: hidden;
+}
+
+.hero-banner {
+    width: 100%;
 }
 
 header {
@@ -45,14 +60,14 @@ nav a {
     padding: 13px;
     border: 1px solid #ccc;
     border-radius: 30px;
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
 }
 
 
 .product-grid {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 20px;
     padding: 20px;
 }
@@ -63,7 +78,6 @@ nav a {
     padding: 20px;
     text-align: left;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
     color: #333;
 }
 
@@ -155,6 +169,15 @@ nav a {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    max-width: 600px;
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 92%;
+        margin: 10% auto;
+        padding: 15px;
+    }
 }
 
 .close {
@@ -172,9 +195,15 @@ nav a {
 }
 
 /* Responsive styles */
-@media (max-width: 768px) {
+@media (max-width: 420px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+        padding: 10px;
+        gap: 12px;
+    }
+
     .product {
-        width: 100%;
+        padding: 14px;
     }
 }
 
@@ -215,7 +244,30 @@ header h1 {
 }
 
 .nav-content li:last-child {
-    margin-left: auto; 
+    margin-left: auto;
+}
+
+@media (max-width: 600px) {
+    .nav-content {
+        flex-wrap: wrap;
+        row-gap: 10px;
+    }
+
+    .logo {
+        margin-right: 0;
+    }
+
+    .logo img,
+    .cart-container img {
+        height: 40px;
+    }
+
+    .search-bar {
+        order: 3;
+        flex: 1 1 100%;
+        padding: 10px 20px;
+        margin-right: 0;
+    }
 }
 .cart-count-circle {
     background-color: #0071dc; 
@@ -262,6 +314,8 @@ header h1 {
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 4px 10px;
+    min-width: 44px;
+    min-height: 44px;
     line-height: 1;
     cursor: pointer;
 }
