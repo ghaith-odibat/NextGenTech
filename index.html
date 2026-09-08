@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NxTGenTech - Tailored Tech for Your Needs</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-content">
+                <li class="logo"> 
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/013/760/485/small_2x/abstract-connection-logo-illustration-in-trendy-and-minimal-style-png.png" alt="NxTGenTech Logo"> 
+                </li>
+                <li class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search for products...">
+                </li>
+                <li class="cart-container">
+                    <a href="#" id="cartLink">
+                        <img src="https://cdn-icons-png.flaticon.com/512/9092/9092715.png" alt="Cart Icon">
+                        <span id="cartCount" class="cart-count-circle">0</span>
+                    </a>
+                </li>
+            </div>
+        </nav>
+        
+    </header>
+    <img src="images/TB.png" alt="C6g">
+    <section class="product-categories">
+        <div class="product-grid">
+            
+            </div>
+    </section>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Your Cart</h2>
+            <div id="cartList"></div>
+            <div id="totalCost"></div>
+            <button id="checkoutButton" class="cta">Checkout</button>
+        </div>
+    </div>
+
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeCheckout">&times;</span>
+            <h2>Checkout</h2>
+            <form id="checkoutForm">
+                <form id="userForm">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required><br><br>
+            
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" required></textarea><br><br>
+            
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city" required><br><br>
+            
+                    <label for="state">State:</label>
+                    <input type="text" id="state" name="state" required><br><br>
+            
+                    <label for="zip">Zip Code:</label>
+                    <input type="text" id="zip" name="zip" required><br><br>
+            
+                    <button type="submit">Submit</button>
+                </form>
+            
+                <script>
+                    document.getElementById('userForm').addEventListener('submit', async (e) => {
+                        e.preventDefault();
+            
+                        const userData = {
+                            name: document.getElementById('name').value,
+                            address: document.getElementById('address').value,
+                            city: document.getElementById('city').value,
+                            state: document.getElementById('state').value,
+                            zip: document.getElementById('zip').value,
+                        };
+            
+                        try {
+                            const response = await fetch('http://localhost:3000/api/users', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(userData),
+                            });
+            
+                            const result = await response.json();
+                            if (response.ok) {
+                                alert(result.message);
+                            } else {
+                                alert('Failed to save user data: ' + result.error);
+                            }
+                        } catch (error) {
+                            console.error('Error:', error);
+                        }
+                    });
+                </script>
+
+                <button type="submit" class="cta">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 NXtGenTech</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
