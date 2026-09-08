@@ -125,148 +125,293 @@ const products = [
       tags: ["Action Camera", "High-Quality", "Durable", "Wide Range of Features"]
     },
   ];
-  
-  let cart = [];
-  
-  function addToCart(productId) {
-    const product = products.find(p => p.id === productId);
-    if (product) {
-      cart.push(product);
-      updateCartCount();
-    }
-  }
-  
-  function updateCartCount() {
-    const cartCountElement = document.getElementById("cartCount");
-    cartCountElement.textContent = cart.length;
-  }
-  
-  function displayCart() {
-    const cartList = document.getElementById("cartList");
-    cartList.innerHTML = "";
-  
-    let totalCost = 0;
-    cart.forEach(product => {
-      const cartItem = document.createElement("div");
-      cartItem.innerHTML = `
-              <img src="${product.image}" alt="${product.name}" width="50">
-              <p>${product.name} - $${product.price.toFixed(2)}</p>
-          `;
-      cartList.appendChild(cartItem);
-      totalCost += product.price;
-    });
-  
-    const totalCostElement = document.getElementById("totalCost");
-    totalCostElement.textContent = `Total: $${totalCost.toFixed(2)}`;
-  }
-  
-  const cartLink = document.getElementById("cartLink");
-  const cartModal = document.getElementById("cartModal");
-  const closeModal = document.getElementById("closeModal");
-  cartLink.addEventListener("click", () => {
-    displayCart();
-    cartModal.style.display = "block";
-  });
-  
-  closeModal.addEventListener("click", () => {
-    cartModal.style.display = "none";
-  });
-  
-  window.onclick = function(event) {
-    if (event.target == cartModal) {
-      cartModal.style.display = "none";
-    }
-  }
-  
-  const checkoutButton = document.getElementById("checkoutButton");
-  const checkoutModal = document.getElementById("checkoutModal");
-  const closeCheckout = document.getElementById("closeCheckout");
-  const checkoutForm = document.getElementById("checkoutForm");
-  
-  checkoutButton.addEventListener("click", () => {
-    checkoutModal.style.display = "block";
-  });
-  
-  closeCheckout.addEventListener("click", () => {
-    checkoutModal.style.display = "none";
-  });
-  
-  checkoutForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-  
-    const name = document.getElementById("name").value;
-    const address = document.getElementById("address").value;
-    const city = document.getElementById("city").value;
-    const state = document.getElementById("state").value;
-    const zip = document.getElementById("zip").value;
-  
-    alert(`Order placed successfully!
-      Name: ${name}
-      Address: ${address}
-      City: ${city}
-      State: ${state}
-      Zip: ${zip}`);
-  
-    cart = [];
-    updateCartCount();
-    checkoutModal.style.display = "none";
-  });
-  
-  function displayProducts() {
-    const productsContainer = document.querySelector('.product-grid');
-    productsContainer.innerHTML = '';
 
-    products.forEach(product => {
-        const productElement = document.createElement('div');
-        productElement.classList.add('product');
-        productElement.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <h3>${product.name}</h3>
-            <p>${product.description}</p>
-            <div class="tags">
-                ${product.tags.map(tag => `<span class="tag" onclick="filterProducts('${tag}')">${tag}</span>`).join('')}
-            </div>
-            <p>$${product.price.toFixed(2)}</p>
-            <button class="cta" onclick="addToCart(${product.id})">Add to Cart</button>
-            <a href="product${product.id}.html" class="cta">.</a>
-        `;
-        productsContainer.appendChild(productElement);
-    });
+const PRODUCT_PAGE_IDS = new Set([1, 2, 3, 4, 5]);
+const CART_STORAGE_KEY = 'nextgentech.cart';
+const API_BASE_URL = (window.NEXTGENTECH_CONFIG?.apiBaseUrl ?? '').replace(/\/+$/, '');
+
+const productGrid = document.querySelector('.product-grid');
+const cartList = document.getElementById('cartList');
+const cartCount = document.getElementById('cartCount');
+const totalCost = document.getElementById('totalCost');
+const cartModal = document.getElementById('cartModal');
+const checkoutModal = document.getElementById('checkoutModal');
+const checkoutForm = document.getElementById('checkoutForm');
+const searchInput = document.getElementById('searchInput');
+
+let cart = loadCart();
+
+function loadCart() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(CART_STORAGE_KEY));
+    if (!Array.isArray(stored)) {
+      return [];
+    }
+    return stored.filter(item => item.quantity > 0 && products.some(p => p.id === item.id));
+  } catch {
+    return [];
+  }
 }
-  
-  function filterProducts(tag) {
-    const productsContainer = document.querySelector('.product-grid');
-    productsContainer.innerHTML = '';
-  
-    const filteredProducts = products.filter(product => product.tags.includes(tag));
-    filteredProducts.forEach(product => {
-      const productElement = document.createElement('div');
-      productElement.classList.add('product');
-      productElement.innerHTML = `
-              <img src="${product.image}" alt="${product.name}">
-              <h3>${product.name}</h3>
-              <p>${product.description}</p>
-              <div class="tags">
-                  ${product.tags.map(tag => `<span class="tag" onclick="filterProducts('${tag}')">${tag}</span>`).join('')}
-              </div>
-              <p>$${product.price.toFixed(2)}</p>
-              <button class="cta" onclick="addToCart(${product.id})">Add to Cart</button>
-              
-          `;
-      productsContainer.appendChild(productElement);
-    });
+
+function saveCart() {
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+  } catch {
+    // Storage is unavailable in private mode and on file:// in some browsers.
   }
-  
-  const searchInput = document.getElementById("searchInput");
-  searchInput.addEventListener("keyup", () => {
-    const searchTerm = searchInput.value.toLowerCase();
-    const filteredProducts = products.filter(product =>
-      product.name.toLowerCase().includes(searchTerm) ||
-      product.description.toLowerCase().includes(searchTerm) ||
-      product.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-    );
-    displayProducts(filteredProducts); // Use the filteredProducts array
+}
+
+function findProduct(productId) {
+  return products.find(p => p.id === productId);
+}
+
+function cartTotal() {
+  return cart.reduce((sum, item) => sum + findProduct(item.id).price * item.quantity, 0);
+}
+
+function addToCart(productId) {
+  const line = cart.find(item => item.id === productId);
+
+  if (line) {
+    line.quantity += 1;
+  } else if (findProduct(productId)) {
+    cart.push({ id: productId, quantity: 1 });
+  } else {
+    return;
+  }
+
+  cartChanged();
+}
+
+function setQuantity(productId, quantity) {
+  if (quantity <= 0) {
+    cart = cart.filter(item => item.id !== productId);
+  } else {
+    const line = cart.find(item => item.id === productId);
+    if (!line) {
+      return;
+    }
+    line.quantity = quantity;
+  }
+
+  cartChanged();
+}
+
+function cartChanged() {
+  saveCart();
+  cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  if (cartModal.style.display === 'block') {
+    displayCart();
+  }
+}
+
+function displayCart() {
+  cartList.innerHTML = '';
+
+  if (cart.length === 0) {
+    cartList.textContent = 'Your cart is empty.';
+    totalCost.textContent = '';
+    return;
+  }
+
+  cart.forEach(item => {
+    const product = findProduct(item.id);
+
+    const row = document.createElement('div');
+    row.className = 'cart-item';
+    row.innerHTML = `
+      <img src="${product.image}" alt="${product.name}" width="50">
+      <span class="cart-item-name">${product.name}</span>
+      <span class="cart-item-price">$${(product.price * item.quantity).toFixed(2)}</span>
+      <span class="quantity-controls">
+        <button type="button" data-quantity="${item.id}" data-step="-1">&minus;</button>
+        <span class="quantity">${item.quantity}</span>
+        <button type="button" data-quantity="${item.id}" data-step="1">+</button>
+        <button type="button" class="remove" data-remove="${item.id}">Remove</button>
+      </span>
+    `;
+    cartList.appendChild(row);
   });
 
+  totalCost.textContent = `Total: $${cartTotal().toFixed(2)}`;
+}
 
-  displayProducts();
+function createProductCard(product) {
+  const card = document.createElement('div');
+  card.className = 'product';
+
+  const image = document.createElement('img');
+  image.src = product.image;
+  image.alt = product.name;
+
+  const name = document.createElement('h3');
+  name.textContent = product.name;
+
+  const description = document.createElement('p');
+  description.textContent = product.description;
+
+  const tags = document.createElement('div');
+  tags.className = 'tags';
+  product.tags.forEach(tag => {
+    const chip = document.createElement('span');
+    chip.className = 'tag';
+    chip.dataset.tag = tag;
+    chip.textContent = tag;
+    tags.appendChild(chip);
+  });
+
+  const price = document.createElement('p');
+  price.textContent = `$${product.price.toFixed(2)}`;
+
+  const addButton = document.createElement('button');
+  addButton.className = 'cta';
+  addButton.dataset.add = product.id;
+  addButton.textContent = 'Add to Cart';
+
+  card.append(image, name, description, tags, price, addButton);
+
+  if (PRODUCT_PAGE_IDS.has(product.id)) {
+    const link = document.createElement('a');
+    link.className = 'cta details-link';
+    link.href = `product${product.id}.html`;
+    link.textContent = 'View details';
+    card.appendChild(link);
+  }
+
+  return card;
+}
+
+function displayProducts(list = products) {
+  productGrid.innerHTML = '';
+
+  if (list.length === 0) {
+    productGrid.textContent = 'No products match your search.';
+    return;
+  }
+
+  list.forEach(product => productGrid.appendChild(createProductCard(product)));
+}
+
+async function saveOrder(order) {
+  if (!API_BASE_URL) {
+    return false;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/users`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(order),
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
+productGrid.addEventListener('click', event => {
+  const addButton = event.target.closest('[data-add]');
+  if (addButton) {
+    addToCart(Number(addButton.dataset.add));
+    return;
+  }
+
+  const chip = event.target.closest('.tag');
+  if (chip) {
+    const tag = chip.dataset.tag;
+    displayProducts(products.filter(product => product.tags.includes(tag)));
+  }
+});
+
+cartList.addEventListener('click', event => {
+  const stepButton = event.target.closest('[data-quantity]');
+  if (stepButton) {
+    const id = Number(stepButton.dataset.quantity);
+    const line = cart.find(item => item.id === id);
+    setQuantity(id, line.quantity + Number(stepButton.dataset.step));
+    return;
+  }
+
+  const removeButton = event.target.closest('[data-remove]');
+  if (removeButton) {
+    setQuantity(Number(removeButton.dataset.remove), 0);
+  }
+});
+
+searchInput.addEventListener('input', () => {
+  const term = searchInput.value.trim().toLowerCase();
+
+  if (!term) {
+    displayProducts();
+    return;
+  }
+
+  displayProducts(products.filter(product =>
+    product.name.toLowerCase().includes(term) ||
+    product.description.toLowerCase().includes(term) ||
+    product.tags.some(tag => tag.toLowerCase().includes(term))
+  ));
+});
+
+document.getElementById('cartLink').addEventListener('click', event => {
+  event.preventDefault();
+  displayCart();
+  cartModal.style.display = 'block';
+});
+
+document.getElementById('closeModal').addEventListener('click', () => {
+  cartModal.style.display = 'none';
+});
+
+document.getElementById('checkoutButton').addEventListener('click', () => {
+  if (cart.length === 0) {
+    alert('Your cart is empty.');
+    return;
+  }
+
+  cartModal.style.display = 'none';
+  checkoutModal.style.display = 'block';
+});
+
+document.getElementById('closeCheckout').addEventListener('click', () => {
+  checkoutModal.style.display = 'none';
+});
+
+window.addEventListener('click', event => {
+  if (event.target === cartModal) {
+    cartModal.style.display = 'none';
+  } else if (event.target === checkoutModal) {
+    checkoutModal.style.display = 'none';
+  }
+});
+
+checkoutForm.addEventListener('submit', async event => {
+  event.preventDefault();
+
+  const order = {
+    name: document.getElementById('name').value,
+    address: document.getElementById('address').value,
+    city: document.getElementById('city').value,
+    state: document.getElementById('state').value,
+    zip: document.getElementById('zip').value,
+  };
+
+  const total = cartTotal();
+  const stored = await saveOrder(order);
+
+  alert(`Order placed successfully!
+Name: ${order.name}
+Address: ${order.address}, ${order.city}, ${order.state} ${order.zip}
+Total: $${total.toFixed(2)}
+
+${stored ? 'Your details were saved to the server.' : 'Demo mode: no backend configured, so nothing was saved.'}`);
+
+  cart = [];
+  cartChanged();
+  checkoutForm.reset();
+  checkoutModal.style.display = 'none';
+});
+
+cartChanged();
+displayProducts();

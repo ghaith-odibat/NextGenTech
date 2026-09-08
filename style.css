@@ -227,6 +227,70 @@ header h1 {
     position: relative; 
 }
 
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.cart-item-name {
+    flex: 1;
+}
+
+.cart-item-price {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.quantity-controls button {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 4px 10px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.quantity-controls button:hover {
+    background-color: #f0f0f0;
+}
+
+.quantity-controls .quantity {
+    min-width: 20px;
+    text-align: center;
+}
+
+.quantity-controls .remove {
+    color: #d9534f;
+}
+
+#totalCost {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 15px 0;
+}
+
+@media (max-width: 600px) {
+    .cart-item {
+        flex-wrap: wrap;
+    }
+}
+
 .cart-count-circle::before {
     content: '';
     position: absolute;
