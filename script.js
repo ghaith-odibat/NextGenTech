@@ -1,7 +1,7 @@
 
 const products = [
     {
-      id:1,
+      id: 1,
       name: "iPhone 15 Pro Max",
       price: 1299.99,
       image: "https://www.techexperiencecentre.com/media/catalog/product/cache/0a9ae47c7a2c7a4cb1e050f523555f03/i/p/iphone_15_pro_max_blue_titanium.png",
@@ -56,8 +56,6 @@ const products = [
       description: "The Nintendo Switch OLED Model offers a vibrant 7-inch OLED screen with a wider color gamut and higher contrast for a stunning visual experience. It also boasts enhanced audio and a redesigned kickstand.",
       tags: ["Gaming", "Portable", "Games", "Controller"]
     },
-    
-
     {
       id: 8,
       name: "Samsung Galaxy Tab S9 Ultra",
@@ -90,8 +88,6 @@ const products = [
       description: "The Samsung Galaxy S23 Ultra is a powerful phone that's perfect for professionals, content creators, and anyone who needs the best performance and features. It features a stunning display, a powerful processor, an exceptional camera system, and an S Pen.",
       tags: ["Professional", "Content Creator", "High-Performance", "S Pen"]
     },
-    // Add more products here 
-
     {
       id: 12,
       name: "Microsoft Surface Go 3",
@@ -123,7 +119,7 @@ const products = [
       image: "https://gopro.com/on/demandware.static/-/Sites-gopro-products/default/dwd909d4f6/images/Product%20Images/cameras/CHDHX-111-master/compare-h11.png",
       description: "The GoPro HERO11 Black is a premium action camera that's perfect for anyone looking for a high-quality video and photo experience. It features a durable design, a long battery life, and a wide range of features.",
       tags: ["Action Camera", "High-Quality", "Durable", "Wide Range of Features"]
-    },
+    }
   ];
 
 const PRODUCT_PAGE_IDS = new Set([1, 2, 3, 4, 5]);
