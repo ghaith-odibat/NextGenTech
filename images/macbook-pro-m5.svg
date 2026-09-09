@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="MacBook Pro with M5 chip">
+  <defs>
+    <linearGradient id="mbp-screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#14315a"/>
+      <stop offset="0.45" stop-color="#2f6fae"/>
+      <stop offset="1" stop-color="#101f36"/>
+    </linearGradient>
+    <linearGradient id="mbp-deck" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3d3b3d"/>
+      <stop offset="1" stop-color="#232123"/>
+    </linearGradient>
+    <linearGradient id="mbp-glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.22"/>
+      <stop offset="0.6" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="150" y="28" width="500" height="332" rx="16" fill="#2e2c2e"/>
+  <rect x="163" y="41" width="474" height="292" rx="6" fill="url(#mbp-screen)"/>
+  <rect x="163" y="41" width="474" height="292" rx="6" fill="url(#mbp-glow)"/>
+  <path d="M370 41 h60 v10 a6 6 0 0 1 -6 6 h-48 a6 6 0 0 1 -6 -6 z" fill="#2e2c2e"/>
+
+  <path d="M96 360 h608 l38 30 a10 10 0 0 1 -7 17 H65 a10 10 0 0 1 -7 -17 z" fill="url(#mbp-deck)"/>
+  <rect x="352" y="360" width="96" height="9" rx="4.5" fill="#1b191b"/>
+
+  <text x="400" y="205" text-anchor="middle" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#ffffff" opacity="0.92">M5</text>
+</svg>

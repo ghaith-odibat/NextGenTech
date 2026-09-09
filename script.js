@@ -119,10 +119,18 @@ const products = [
       image: "https://gopro.com/on/demandware.static/-/Sites-gopro-products/default/dwd909d4f6/images/Product%20Images/cameras/CHDHX-111-master/compare-h11.png",
       description: "The GoPro HERO11 Black is a premium action camera that's perfect for anyone looking for a high-quality video and photo experience. It features a durable design, a long battery life, and a wide range of features.",
       tags: ["Action Camera", "High-Quality", "Durable", "Wide Range of Features"]
+    },
+    {
+      id: 16,
+      name: "MacBook Pro (M5)",
+      price: 1999.00,
+      image: "images/macbook-pro-m5.svg",
+      description: "The M5 MacBook Pro pairs the same mini-LED ProMotion screen and build across the whole range, so the only real decision is how much chip you need. Configure the size, chip, memory and storage to see exactly what each upgrade costs.",
+      tags: ["Professional", "Configurable", "Content Creator", "Developer"]
     }
   ];
 
-const PRODUCT_PAGE_IDS = new Set([1, 2, 3, 4, 5]);
+const PRODUCT_PAGE_IDS = new Set([1, 2, 3, 4, 5, 16]);
 const CART_STORAGE_KEY = 'nextgentech.cart';
 const API_BASE_URL = (window.NEXTGENTECH_CONFIG?.apiBaseUrl ?? '').replace(/\/+$/, '');
 

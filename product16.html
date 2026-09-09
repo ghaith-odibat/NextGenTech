@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MacBook Pro M5 Review</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="product-page.css">
+    <link rel="stylesheet" href="macbook-pro-m5.css">
+</head>
+<body>
+
+    <header>
+        <h1>MacBook Pro (M5) Overview</h1>
+    </header>
+
+    <div class="container">
+
+        <div class="section">
+            <h3>Build your MacBook Pro</h3>
+            <p>Pick your options below and the price updates as you go. Every choice shows what you actually gain and what you give up.</p>
+
+            <div class="configurator" id="configurator">
+
+                <div class="config-visual">
+                    <svg class="macbook-illustration" id="macbookIllustration" data-color="space-black" data-size="14"
+                         viewBox="0 0 800 500" role="img" aria-label="MacBook Pro preview">
+                        <defs>
+                            <linearGradient id="cfg-screen" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#14315a"/>
+                                <stop offset="0.45" stop-color="#2f6fae"/>
+                                <stop offset="1" stop-color="#101f36"/>
+                            </linearGradient>
+                            <linearGradient id="cfg-deck" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="var(--mb-deck-top)"/>
+                                <stop offset="1" stop-color="var(--mb-deck-bottom)"/>
+                            </linearGradient>
+                            <linearGradient id="cfg-glow" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#ffffff" stop-opacity="0.22"/>
+                                <stop offset="0.6" stop-color="#ffffff" stop-opacity="0"/>
+                            </linearGradient>
+                        </defs>
+
+                        <rect x="150" y="28" width="500" height="332" rx="16" fill="var(--mb-body)"/>
+                        <rect x="163" y="41" width="474" height="292" rx="6" fill="url(#cfg-screen)"/>
+                        <rect x="163" y="41" width="474" height="292" rx="6" fill="url(#cfg-glow)"/>
+                        <path d="M370 41 h60 v10 a6 6 0 0 1 -6 6 h-48 a6 6 0 0 1 -6 -6 z" fill="var(--mb-body)"/>
+
+                        <path d="M96 360 h608 l38 30 a10 10 0 0 1 -7 17 H65 a10 10 0 0 1 -7 -17 z" fill="url(#cfg-deck)"/>
+                        <rect x="352" y="360" width="96" height="9" rx="4.5" fill="var(--mb-lip)"/>
+
+                        <text x="400" y="205" text-anchor="middle" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#ffffff" opacity="0.92">M5</text>
+                    </svg>
+
+                    <div class="summary">
+                        <p class="summary-line" id="summaryLine"></p>
+                        <p class="total-price" id="totalPrice"></p>
+                        <p class="price-breakdown" id="priceBreakdown"></p>
+                    </div>
+                </div>
+
+                <div class="config-options">
+
+                    <div class="config-group">
+                        <h3>Chip</h3>
+                        <p class="hint">This is the biggest decision. It sets your price floor and how much memory you can add.</p>
+                        <div class="options" id="chipOptions"></div>
+                        <div class="proscons" id="chipProsCons"></div>
+                    </div>
+
+                    <div class="config-group">
+                        <h3>Screen size</h3>
+                        <p class="hint">The entry M5 chip only comes in the 14-inch.</p>
+                        <div class="options" id="sizeOptions"></div>
+                        <div class="proscons" id="sizeProsCons"></div>
+                    </div>
+
+                    <div class="config-group">
+                        <h3>Memory</h3>
+                        <p class="hint">How much you can keep open at once.</p>
+                        <div class="options" id="memoryOptions"></div>
+                        <div class="proscons" id="memoryProsCons"></div>
+                    </div>
+
+                    <div class="config-group">
+                        <h3>Storage</h3>
+                        <p class="hint">Apple dropped the 512GB option, so everything starts at 1TB.</p>
+                        <div class="options" id="storageOptions"></div>
+                        <div class="proscons" id="storageProsCons"></div>
+                    </div>
+
+                    <div class="config-group">
+                        <h3>Display glass</h3>
+                        <p class="hint">Only worth it if you fight glare.</p>
+                        <div class="options" id="displayOptions"></div>
+                        <div class="proscons" id="displayProsCons"></div>
+                    </div>
+
+                    <div class="config-group">
+                        <h3>Colour</h3>
+                        <p class="hint">No price difference either way.</p>
+                        <div class="options" id="colorOptions"></div>
+                        <div class="proscons" id="colorProsCons"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>The review</h3>
+            <p class="rating">Rating: &#9733;&#9733;&#9733;&#9733;&#9734; (4.6/5)</p>
+
+            <p>The M5 MacBook Pro is a boring update in the best way. Apple put the base M5 in the 14-inch in October 2025, then brought the M5 Pro and M5 Max to both sizes in March 2026. Nothing about the outside changed. The case, the mini-LED screen, the ports and the keyboard are the same as the generation before. What changed is underneath, and what changed in the store.</p>
+
+            <p>The headline number is AI performance. Apple claims up to four times the AI work of the previous generation, and the M5 Max pushes memory bandwidth to 614GB/s. In plain terms: local AI models that used to crawl now run at a usable speed, and you do not need to send anything to a server to do it. The SSDs also got roughly twice as fast, up to 14.5GB/s, which you feel when you copy a folder of raw video rather than when you open apps.</p>
+
+            <p>The more interesting change is the storage shake-up. Apple deleted the 512GB tier in March 2026 and made 1TB the floor across the whole line, while cutting the price of the bigger SSD upgrades. That is genuinely good news. The old 512GB base model was the one people regretted two years later, and you can no longer accidentally buy it.</p>
+
+            <p>The bad news is price. Apple raised every MacBook Pro by $300 in June 2026 because of the global memory shortage. A 14-inch M5 that would have been $1,699 is now $1,999. None of that is Apple being greedy about this particular laptop, but it does not make the sticker any smaller.</p>
+
+            <h4>Which one should you actually buy?</h4>
+
+            <p><strong>Most people should buy the plain M5.</strong> At $1,999 it gets you the same screen, the same speakers, the same build and the same ports as the expensive ones. If your day is browser tabs, documents, code, photos and the occasional video edit, the money you save is better spent on storage than on more graphics cores you will not use.</p>
+
+            <p><strong>Buy the M5 Pro if you edit video or build large projects.</strong> It roughly doubles the graphics power and unlocks the 16-inch, which is the real reason a lot of people step up. If you scrub 4K timelines every day, this is the sweet spot.</p>
+
+            <p><strong>Buy the M5 Max only if you know why you need it.</strong> Forty graphics cores, 128GB of memory and 614GB/s of bandwidth are aimed at 8K footage, heavy 3D and running big AI models locally. It also starts at 2TB of storage, which is part of why the jump to $4,099 feels so steep. If you cannot name the specific task that needs it, you do not need it.</p>
+
+            <div class="verdict">
+                <p><strong>Verdict:</strong> the best laptop Apple sells, and the entry model is the one to buy. Spend the upgrade money on storage first, memory second, and the chip last, unless your work genuinely hammers the GPU.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>M5 vs M5 Pro vs M5 Max</h3>
+            <p>The differences between the three variations, side by side.</p>
+
+            <div class="compare-scroll">
+                <table class="compare">
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>M5</th>
+                            <th>M5 Pro</th>
+                            <th>M5 Max</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Starting price</th>
+                            <td class="pick">$1,999</td>
+                            <td>$2,499 (14&#8243;) / $2,999 (16&#8243;)</td>
+                            <td>$4,099 (14&#8243;) / $4,399 (16&#8243;)</td>
+                        </tr>
+                        <tr>
+                            <th>CPU</th>
+                            <td>10-core</td>
+                            <td>Up to 18-core</td>
+                            <td>18-core</td>
+                        </tr>
+                        <tr>
+                            <th>GPU</th>
+                            <td>10-core</td>
+                            <td>Up to 20-core</td>
+                            <td>Up to 40-core</td>
+                        </tr>
+                        <tr>
+                            <th>Screen sizes</th>
+                            <td>14&#8243; only</td>
+                            <td>14&#8243; or 16&#8243;</td>
+                            <td>14&#8243; or 16&#8243;</td>
+                        </tr>
+                        <tr>
+                            <th>Max memory</th>
+                            <td>32GB</td>
+                            <td>64GB</td>
+                            <td>128GB</td>
+                        </tr>
+                        <tr>
+                            <th>Storage starts at</th>
+                            <td>1TB</td>
+                            <td>1TB</td>
+                            <td>2TB</td>
+                        </tr>
+                        <tr>
+                            <th>Best for</th>
+                            <td class="pick">Almost everyone</td>
+                            <td>Video editors, developers</td>
+                            <td>8K video, 3D, local AI models</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>MacBook Pro vs MacBook Air vs MacBook Neo</h3>
+            <p>Three very different machines at three very different prices. Most buyers are choosing between these, not between the Pro chips.</p>
+
+            <div class="compare-scroll">
+                <table class="compare">
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>MacBook Neo</th>
+                            <th>MacBook Air (M5)</th>
+                            <th>MacBook Pro (M5)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Price from</th>
+                            <td class="pick">$599</td>
+                            <td>$1,099 (13&#8243;) / $1,299 (15&#8243;)</td>
+                            <td>$1,999</td>
+                        </tr>
+                        <tr>
+                            <th>Chip</th>
+                            <td>A18 Pro (from the iPhone)</td>
+                            <td>M5</td>
+                            <td>M5, M5 Pro or M5 Max</td>
+                        </tr>
+                        <tr>
+                            <th>Memory</th>
+                            <td>8GB</td>
+                            <td>16GB</td>
+                            <td>16GB to 128GB</td>
+                        </tr>
+                        <tr>
+                            <th>Storage</th>
+                            <td>256GB</td>
+                            <td>512GB</td>
+                            <td>1TB to 8TB</td>
+                        </tr>
+                        <tr>
+                            <th>Screen</th>
+                            <td>13&#8243; Liquid Retina</td>
+                            <td>13.6&#8243; or 15&#8243;, 500 nits, no ProMotion</td>
+                            <td class="pick">14&#8243; or 16&#8243; mini-LED with ProMotion</td>
+                        </tr>
+                        <tr>
+                            <th>Battery</th>
+                            <td>Up to 16 hours</td>
+                            <td>Up to 18 hours</td>
+                            <td>All-day, biggest in the 16&#8243;</td>
+                        </tr>
+                        <tr>
+                            <th>Weight</th>
+                            <td>2.7 lb</td>
+                            <td>2.7 lb</td>
+                            <td>Heavier, especially the 16&#8243;</td>
+                        </tr>
+                        <tr>
+                            <th>Fan</th>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>Yes, so it keeps full speed under load</td>
+                        </tr>
+                        <tr>
+                            <th>Buy it if</th>
+                            <td>You are a student or want a cheap, light Mac for school and browsing</td>
+                            <td>You want a thin everyday laptop and never render anything</td>
+                            <td>You need the screen, the ports, or sustained speed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="verdict">
+                <p><strong>The short version.</strong> The Neo at $599 is the one that changes the maths. It is an iPhone chip in a laptop body with 8GB of memory, so it will not edit video, but for notes, browsing, email and streaming it is more than enough and costs a third of an Air.</p>
+                <p>Step up to the Air if you want more memory and a bigger, better screen in something still fanless and light. Step up to the Pro only when you need the mini-LED ProMotion screen, the extra ports, or a fan that lets the chip run flat out for an hour without slowing down.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="macbook-pro-m5.js"></script>
+
+</body>
+</html>
