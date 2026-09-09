@@ -250,7 +250,15 @@ function createProductCard(product) {
   image.alt = product.name;
 
   const name = document.createElement('h3');
-  name.textContent = product.name;
+  if (PRODUCT_PAGE_IDS.has(product.id)) {
+    const link = document.createElement('a');
+    link.className = 'product-link';
+    link.href = `product${product.id}.html`;
+    link.textContent = product.name;
+    name.appendChild(link);
+  } else {
+    name.textContent = product.name;
+  }
 
   const description = document.createElement('p');
   description.textContent = product.description;
@@ -273,19 +281,7 @@ function createProductCard(product) {
   addButton.dataset.add = product.id;
   addButton.textContent = 'Add to Cart';
 
-  const actions = document.createElement('div');
-  actions.className = 'product-actions';
-  actions.appendChild(addButton);
-
-  if (PRODUCT_PAGE_IDS.has(product.id)) {
-    const link = document.createElement('a');
-    link.className = 'cta details-link';
-    link.href = `product${product.id}.html`;
-    link.textContent = 'View details';
-    actions.appendChild(link);
-  }
-
-  card.append(image, name, description, tags, price, actions);
+  card.append(image, name, description, tags, price, addButton);
 
   return card;
 }
