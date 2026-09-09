@@ -265,15 +265,19 @@ function createProductCard(product) {
   addButton.dataset.add = product.id;
   addButton.textContent = 'Add to Cart';
 
-  card.append(image, name, description, tags, price, addButton);
+  const actions = document.createElement('div');
+  actions.className = 'product-actions';
+  actions.appendChild(addButton);
 
   if (PRODUCT_PAGE_IDS.has(product.id)) {
     const link = document.createElement('a');
     link.className = 'cta details-link';
     link.href = `product${product.id}.html`;
     link.textContent = 'View details';
-    card.appendChild(link);
+    actions.appendChild(link);
   }
+
+  card.append(image, name, description, tags, price, actions);
 
   return card;
 }

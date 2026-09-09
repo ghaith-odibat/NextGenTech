@@ -117,6 +117,21 @@ nav li {
     outline: none;
 }
 
+.product-actions:has(.details-link) {
+    display: flex;
+    gap: 10px;
+}
+
+.product-actions:has(.details-link) .cta {
+    flex: 1;
+    font: inherit;
+    text-align: center;
+}
+
+.details-link {
+    text-decoration: none;
+}
+
 /* Cart Icon Styling */
 #cartLink {
     color: #fff;
