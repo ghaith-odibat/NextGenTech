@@ -4,7 +4,7 @@ const products = [
       id: 1,
       name: "iPhone 15 Pro Max",
       price: 1299.99,
-      image: "https://www.techexperiencecentre.com/media/catalog/product/cache/0a9ae47c7a2c7a4cb1e050f523555f03/i/p/iphone_15_pro_max_blue_titanium.png",
+      image: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_15_pro_max.png?width=600",
       description: "The iPhone 15 Pro Max is the ultimate iPhone experience, offering the largest display, the longest battery life, and the most powerful camera system.  It's perfect for professionals, content creators, and anyone who wants the best of the best.",
       tags: ["Professional", "Content Creator", "Large Display", "Long Battery Life"]
     },
